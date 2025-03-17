@@ -1,2 +1,2 @@
 # crud-js
-CRUD Javascript - usando Express e Vue(Vite)
+CRUD Javascript - Express e React(Vite)
