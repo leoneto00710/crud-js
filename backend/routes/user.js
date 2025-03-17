@@ -1,7 +1,7 @@
 import express from "express"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import { JWT } from "../auth/auth.js"
+import { JWT } from "../middlewares/auth.js"
 
 import { PrismaClient } from "@prisma/client"
 
@@ -53,7 +53,7 @@ router.post("/login", async (req, res) => {
       return res.status(400).json("Password incorrect")
     }
 
-    const token = jwt.sign({ id: user.id }, JWT, { expiresIn: "1d" })
+    const token = jwt.sign({ id: user.id }, JWT, { expiresIn: "1h" })
 
     return res.status(200).json({ token })
   } catch (e) {
