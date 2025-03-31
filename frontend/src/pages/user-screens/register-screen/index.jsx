@@ -1,8 +1,8 @@
-import { useState, React } from "react"
+import { useState } from "react"
 import { AtSign, Lock, LockKeyhole, UserRound } from "lucide-react"
-import { Input } from "../../../components/input"
-import { Button } from "../../../components/button"
-import { ErrorMessage } from "../../../components/error-message"
+import { Input } from "../components/input"
+import { Button } from "../components/button"
+import { ErrorMessage } from "../components/error-message"
 import { createUser } from "../../../services/user/user"
 
 export function RegisterScreen({ handleHaveAccount }) {
@@ -47,7 +47,7 @@ export function RegisterScreen({ handleHaveAccount }) {
 
     checkInput(isPasswordMatch, setPasswordNotMatch)
 
-    if ((isPasswordMatch, email, username, password)) {
+    if (isPasswordMatch && email && username && password) {
       createUser(username, email, password)
       resetForm()
     }
@@ -88,7 +88,7 @@ export function RegisterScreen({ handleHaveAccount }) {
           type={"password"}
           placeholder={"Confirm password"}
         />
-        <Button text={"create account"} />
+        <Button text={"create"} />
       </form>
       <p className="cursor-pointer hover:underline" onClick={handleHaveAccount}>
         already have an account?
