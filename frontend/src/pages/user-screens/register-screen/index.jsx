@@ -49,7 +49,7 @@ export function RegisterScreen({ handleHaveAccount }) {
 
     if (isPasswordMatch && email && username && password) {
       createUser(username, email, password)
-      resetForm()
+      handleHaveAccount(!handleHaveAccount)
     }
   }
 

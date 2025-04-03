@@ -2,8 +2,9 @@ import { useState } from "react"
 import { AtSign, Lock } from "lucide-react"
 import { Input } from "../components/input"
 import { Button } from "../components/button"
-import { ErrorMessage } from "../components/components/error-message"
+import { ErrorMessage } from "../components/error-message"
 import { login } from "../../../services/user/user"
+import { useNavigate } from "react-router-dom"
 
 export function LoginScreen({ handleHaveAccount }) {
   const [missingEmail, setMissingEmail] = useState(false)
@@ -11,6 +12,8 @@ export function LoginScreen({ handleHaveAccount }) {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const navigate = useNavigate()
 
   function checkInput(param, state) {
     state(!param)
@@ -25,15 +28,17 @@ export function LoginScreen({ handleHaveAccount }) {
     setMissingPassword(false)
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     checkInput(email, setMissingEmail)
     checkInput(password, setMissingPassword)
 
     if(email && password) {
-      const token = login(email, password)
+      const {token} = await login(email, password)
+      console.log(token)
       if (token) {
-        resetForm()
+        localStorage.setItem("token", token)
+        navigate("/home")
       }
     }
   }
