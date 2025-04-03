@@ -1,6 +1,6 @@
 import express from "express"
-import userRoutes from "./routes/user.js"
-import taskRoutes from "./routes/privates/task.js"
+import userRoutes from "./routes/public/user.js"
+import taskRoutes from "./routes/private/task.js"
 
 import { auth } from "./middlewares/auth.js"
 

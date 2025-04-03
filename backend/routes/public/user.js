@@ -1,7 +1,7 @@
 import express from "express"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import { JWT } from "../middlewares/auth.js"
+import { JWT } from "../../middlewares/auth.js"
 
 import { PrismaClient } from "@prisma/client"
 
