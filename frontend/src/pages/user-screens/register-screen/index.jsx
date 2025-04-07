@@ -22,19 +22,6 @@ export function RegisterScreen({ handleHaveAccount }) {
     return
   }
 
-  function resetForm() {
-    setUsername("")
-    setEmail("")
-    setPassword("")
-    setConfirmPassword("")
-
-    setMissingUsername(false)
-    setMissingEmail(false)
-    setMissingPassword(false)
-    setMissingConfirmPassword(false)
-    setPasswordNotMatch(false)
-  }
-
   function handleSubmit(e) {
     e.preventDefault()
 

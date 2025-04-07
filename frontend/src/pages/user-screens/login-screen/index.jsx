@@ -20,22 +20,13 @@ export function LoginScreen({ handleHaveAccount }) {
     return
   }
 
-  function resetForm() {
-    setEmail("")
-    setPassword("")
-
-    setMissingEmail(false)
-    setMissingPassword(false)
-  }
-
   async function handleSubmit(e) {
     e.preventDefault()
     checkInput(email, setMissingEmail)
     checkInput(password, setMissingPassword)
 
     if(email && password) {
-      const {token} = await login(email, password)
-      console.log(token)
+      const token = await login(email, password)
       if (token) {
         localStorage.setItem("token", token)
         navigate("/home")
