@@ -14,7 +14,7 @@ export function Button({
   }
 
   const variantStyles = {
-    text: `bg-zinc-200 text-zinc-800 hover:text-zinc-200 hover:bg-lime-600 transition-all duration-200 w-full hover:rounded-3xl p-2 font-semibold rounded-md`,
+    text: `bg-zinc-200 text-zinc-800 hover:text-zinc-200 hover:bg-lime-600 transition-all duration-200 w-full hover:rounded-3xl p-2 font-semibold rounded-md active:bg-lime-600/50 active:text-zinc-200/50`,
     icon: `fixed bottom-0 right-0 p-5 text-zinc-200`,
   }
   return (
