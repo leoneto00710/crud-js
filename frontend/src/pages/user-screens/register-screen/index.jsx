@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { AtSign, Lock, LockKeyhole, UserRound } from "lucide-react"
-import { Input } from "../components/input"
-import { Button } from "../components/button"
-import { ErrorMessage } from "../components/error-message"
+import { checkInput } from "../../../utils/check-input/check-input"
+import { Input } from "../../../components/input"
+import { Button } from "../../../components/button"
+import { ErrorMessage } from "../../../components/error-message"
 import { createUser } from "../../../services/user/user"
 
 export function RegisterScreen({ handleHaveAccount }) {
@@ -16,11 +17,6 @@ export function RegisterScreen({ handleHaveAccount }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-
-  function checkInput(param, state) {
-    state(!param)
-    return
-  }
 
   function handleSubmit(e) {
     e.preventDefault()

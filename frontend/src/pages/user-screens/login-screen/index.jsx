@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { AtSign, Lock } from "lucide-react"
-import { Input } from "../components/input"
-import { Button } from "../components/button"
-import { ErrorMessage } from "../components/error-message"
+import { Input } from "../../../components/input"
+import { Button } from "../../../components/button"
+import { ErrorMessage } from "../../../components/error-message"
 import { login } from "../../../services/user/user"
 import { useNavigate } from "react-router-dom"
 
