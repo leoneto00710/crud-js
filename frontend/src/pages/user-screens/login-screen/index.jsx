@@ -3,34 +3,32 @@ import { AtSign, Lock } from "lucide-react"
 import { Input } from "../../../components/input"
 import { Button } from "../../../components/button"
 import { ErrorMessage } from "../../../components/error-message"
-import { login } from "../../../services/user/user"
-import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../../hooks/user/use-auth"
+import { checkInput } from "../../../utils/check-input/index"
 
 export function LoginScreen({ handleHaveAccount }) {
-  const [missingEmail, setMissingEmail] = useState(false)
-  const [missingPassword, setMissingPassword] = useState(false)
-
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const navigate = useNavigate()
+  const [missingEmail, setMissingEmail] = useState(false)
+  const [missingPassword, setMissingPassword] = useState(false)
 
-  function checkInput(param, state) {
-    state(!param)
-    return
-  }
+  const { useLogin, isLoading } = useAuth()
 
   async function handleSubmit(e) {
     e.preventDefault()
-    checkInput(email, setMissingEmail)
-    checkInput(password, setMissingPassword)
+    const isEmailMissing = checkInput(email)
+    const isPasswordMissing = checkInput(password)
 
-    if(email && password) {
-      const token = await login(email, password)
-      if (token) {
-        localStorage.setItem("token", token)
-        navigate("/home")
-      }
+    setMissingEmail(isEmailMissing)
+    setMissingPassword(isPasswordMissing)
+
+    if (missingEmail || missingPassword) return
+
+    try {
+      await useLogin(email, password)
+    } catch (e) {
+      console.log(e)
     }
   }
 
@@ -42,20 +40,30 @@ export function LoginScreen({ handleHaveAccount }) {
         onSubmit={handleSubmit}
       >
         <Input
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value)
+            if (missingEmail) setMissingEmail(false)
+          }}
           value={email}
           icon={AtSign}
           type={"email"}
           placeholder={"Email"}
         />
         <Input
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value)
+            if (missingPassword) setMissingPassword(false)
+          }}
           value={password}
           icon={Lock}
           type={"password"}
           placeholder={"Password"}
         />
-        <Button text={"log-in"} />
+        {isLoading ? (
+          <Button isLoading={isLoading} />
+        ) : (
+          <Button text={"log-in"} />
+        )}
       </form>
       <p className="cursor-pointer hover:underline" onClick={handleHaveAccount}>
         don't have an account?
