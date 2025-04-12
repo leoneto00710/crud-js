@@ -1,15 +1,10 @@
-import { useState } from "react"
-import { api } from "../../services/api"
+import { useState } from "react"  
 import { useNavigate } from "react-router-dom"
 import { login, createUser } from "../../services/user/user"
 
 export function useAuth() {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-
-  const checkInput = (param) => {
-    return !param || param.trim() === ""
-  }
 
   const useLogin = async (email, password) => {
     setIsLoading(true)
@@ -45,7 +40,6 @@ export function useAuth() {
   return {
     useLogin,
     useCreateUser,
-    checkInput,
     isLoading,
   }
 }
