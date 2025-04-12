@@ -1,5 +1,4 @@
-export const checkInput = (param, setErrorState) => {
+export const checkInput = (param) => {
   const isEmpty = !param || param.trim() === ""
-  setErrorState(isEmpty)
   return isEmpty
 }
