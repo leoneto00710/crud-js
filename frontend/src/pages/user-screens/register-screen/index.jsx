@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { AtSign, Lock, LockKeyhole, UserRound } from "lucide-react"
-import { checkInput } from "../../../utils/check-input/check-input"
 import { Input } from "../../../components/input"
 import { Button } from "../../../components/button"
 import { ErrorMessage } from "../../../components/error-message"
-import { createUser } from "../../../services/user/user"
+import { checkInput } from "../../../utils/check-input/index"
+import { useAuth } from "../../../hooks/user/use-auth"
 
 export function RegisterScreen({ handleHaveAccount }) {
   const [missingUsername, setMissingUsername] = useState(false)
@@ -18,20 +18,29 @@ export function RegisterScreen({ handleHaveAccount }) {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
+  const { useCreateUser, isLoading } = useAuth()
+
   function handleSubmit(e) {
     e.preventDefault()
-
-    checkInput(username, setMissingUsername)
-    checkInput(email, setMissingEmail)
-    checkInput(password, setMissingPassword)
-    checkInput(confirmPassword, setMissingConfirmPassword)
+  
+    const isUsernameMissing = checkInput(username)
+    const isEmailMissing = checkInput(email)
+    const isPasswordMissing = checkInput(password)
+    const isConfirmPasswordMissing = checkInput(confirmPassword)
+  
+    setMissingUsername(isUsernameMissing)
+    setMissingEmail(isEmailMissing)
+    setMissingPassword(isPasswordMissing)
+    setMissingConfirmPassword(isConfirmPasswordMissing)
+  
+    if (isUsernameMissing || isEmailMissing || isPasswordMissing || isConfirmPasswordMissing) return
 
     const isPasswordMatch = password === confirmPassword
 
-    checkInput(isPasswordMatch, setPasswordNotMatch)
+    setPasswordNotMatch(!isPasswordMatch)
 
     if (isPasswordMatch && email && username && password) {
-      createUser(username, email, password)
+      useCreateUser(username, email, password)
       handleHaveAccount(!handleHaveAccount)
     }
   }
@@ -71,7 +80,11 @@ export function RegisterScreen({ handleHaveAccount }) {
           type={"password"}
           placeholder={"Confirm password"}
         />
-        <Button text={"create"} />
+        {isLoading ? (
+          <Button isLoading={isLoading} />
+        ) : (
+          <Button text={"create"} />
+        )}
       </form>
       <p className="cursor-pointer hover:underline" onClick={handleHaveAccount}>
         already have an account?
