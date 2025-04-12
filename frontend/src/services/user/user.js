@@ -1,9 +1,9 @@
 import { api } from "../api"
 
-export async function createUser(name, email, password) {
+export async function createUser(username, email, password) {
   try {
     const lowerCaseEmail = email.toLowerCase()
-    await api.post("/user/register", { name, email:lowerCaseEmail, password })
+    await api.post("/user/register", { name: username, email:lowerCaseEmail, password })
     console.log("User created successfully")
   } catch (e) {
     throw new Error(e)
