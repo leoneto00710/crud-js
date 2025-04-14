@@ -1,6 +1,7 @@
 import { AtSign, User2 } from "lucide-react"
 
 export function Profile({ profile }) {
+
   return (
     <div className="flex flex-col gap-1">
       <ProfileItem Icon={AtSign} text={profile.email} />
